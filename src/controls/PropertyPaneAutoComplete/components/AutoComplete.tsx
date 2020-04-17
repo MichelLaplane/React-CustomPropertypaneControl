@@ -594,18 +594,14 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    */
   public render(): JSX.Element {
 
-    return (
-      <div>
-        <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
-      </div>
-    )
-    // var fontSelect = {
-    //   fontSize: '16px',
-    //   width: '100%',
-    //   position: 'relative',
-    //   display: 'inline-block',
-    //   zoom: 1
-    // };
+
+    var fontSelect = {
+      fontSize: '16px',
+      width: '100%',
+      position: 'relative',
+      display: 'inline-block',
+      zoom: 1
+    };
     // var dropdownColor = '1px solid #c8c8c8';
     // if (this.props.disabled === true)
     //   dropdownColor = '1px solid #f4f4f4';
@@ -732,5 +728,10 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     //       : ''}
     //   </div>
     // );
+    return (
+      <div>
+        <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
+      </div>
+    )    
   }
 }
