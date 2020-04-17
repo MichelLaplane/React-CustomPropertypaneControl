@@ -3,7 +3,7 @@
     "solution": {
         "name": "react-custompropertypanecontrol-client-side-solution",
         "id": "e20f72b2-8adf-4ecb-a930-94a7a34e2890",
-        "version": "0.1.5.0",
+        "version": "0.1.6.0",
         "includeClientSideAssets": true,
         "isDomainIsolated": false
     },

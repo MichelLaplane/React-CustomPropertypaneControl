@@ -678,6 +678,12 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     };
     var carret: string = this.state.isOpen ? 'ms-Icon ms-Icon--ChevronUp' : 'ms-Icon ms-Icon--ChevronDown';
     //Renders content
+    return (
+      <div style={{ marginBottom: '8px' }}>
+        <Label>{this.props.label}</Label>
+      </div>
+    );
+
     // return (
     //   <div style={{ marginBottom: '8px' }}>
     //     <Label>{this.props.label}</Label>
@@ -728,10 +734,10 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     //       : ''}
     //   </div>
     // );
-    return (
-      <div>
-        <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
-      </div>
-    );    
+    // return (
+    //   <div>
+    //     <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
+    //   </div>
+    // );    
   }
 }
