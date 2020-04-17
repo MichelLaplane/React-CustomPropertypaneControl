@@ -351,10 +351,5 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
           : ''}
       </div>
     );
-    // return (
-    //   <div>
-    //     <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
-    //   </div>
-    // );
   }
 }

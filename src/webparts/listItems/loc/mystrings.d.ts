@@ -11,6 +11,7 @@ declare interface IListItemsWebPartStrings {
   DocumentPickerButtonSelect: string;
   DocumentPickerButtonReset: string;
   AlignFieldLabel: string;
+  AutoSuggestFieldLabel: string;
 }
 
 declare module 'ListItemsWebPartStrings' {

@@ -18,6 +18,8 @@ import { update, get } from '@microsoft/sp-lodash-subset';
 
 import { PropertyPaneDocumentPicker } from '../../controls/PropertyPaneDocumentPicker/PropertyPaneDocumentPicker';
 import { PropertyPaneAlignPicker } from '../../controls/PropertyPaneAlignPicker/PropertyPaneAlignPicker';
+import { PropertyPaneAutoComplete } from '../../controls/PropertyPaneAutoComplete/PropertyPaneAutoComplete';
+
 
 const packageSolution: any = require("../../../config/package-solution.json");
 
@@ -27,6 +29,7 @@ export interface IListItemsWebPartProps {
   item: string;
   documentUrl: string;
   align: string;
+  autoSuggest: string;
 }
 
 
@@ -206,6 +209,72 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                   deferredValidationTime: 0,
 //                  key: 'alignFieldId'
                 }),                
+                new PropertyPaneAutoComplete('autoSuggest', {
+                  label: strings.AutoSuggestFieldLabel,
+                  placeHolder: 'Select a state',
+                  initialValue: this.properties.autoSuggest,
+                  suggestions: [
+                    "Alabama",
+                    "Alaska",
+                    "Arizona",
+                    "Arkansas",
+                    "California",
+                    "Colorado",
+                    "Connecticut",
+                    "Delaware",
+                    "Florida",
+                    "Georgia",
+                    "Hawaii",
+                    "Idaho",
+                    "Illinois",
+                    "Indiana",
+                    "Iowa",
+                    "Kansas",
+                    "Kentucky",
+                    "Louisiana",
+                    "Maine",
+                    "Maryland",
+                    "Massachusetts",
+                    "Michigan",
+                    "Minnesota",
+                    "Mississippi",
+                    "Missouri",
+                    "Montana",
+                    "Nebraska",
+                    "Nevada",
+                    "New Hampshire",
+                    "New Jersey",
+                    "New Mexico",
+                    "New York",
+                    "North Carolina",
+                    "North Dakota",
+                    "Ohio",
+                    "Oklahoma",
+                    "Oregon",
+                    "Pennsylvania",
+                    "Rhode Island",
+                    "South Carolina",
+                    "South Dakota",
+                    "Tennessee",
+                    "Texas",
+                    "Utah",
+                    "Vermont",
+                    "Virginia",
+                    "Washington",
+                    "West Virginia",
+                    "Wisconsin",
+                    "Wyoming"
+                  ],
+                  onPropertyChanged: this.onPropertyPaneFieldChanged,
+//                  render: this.render.bind(this),
+                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
+//                  properties: this.properties,
+                  disabled: false,
+//                  onGetErrorMessage: null,
+                  deferredValidationTime: 0,
+//                  key: 'autoSuggestFieldId'
+                }),                
+                
               ]
             }
           ]

@@ -5,6 +5,7 @@ define([], function() {
     "ListFieldLabel": "List",
     "ItemFieldLabel": "Item",
     "DocumentFieldLabel": "Choose a Visio Document",
-    "AlignFieldLabel": "Align Field"
+    "AlignFieldLabel": "Align Field",
+    "AutoSuggestFieldLabel": "Auto Complete Input Field"
   }
 });
