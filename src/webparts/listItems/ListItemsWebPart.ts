@@ -194,17 +194,17 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                 //                   deferredValidationTime: 0,
                 //                   key: 'documentFieldId'
                 //                 })
-                PropertyPaneAlignPicker('align', {
+                new PropertyPaneAlignPicker('align', {
                   label: strings.AlignFieldLabel,
                   initialValue: this.properties.align,
                   onPropertyChanged: this.onPropertyPaneFieldChanged,
-                  render: this.render.bind(this),
+//                  render: this.render.bind(this),
                   disableReactivePropertyChanges: this.disableReactivePropertyChanges,
-                  properties: this.properties,
+//                  properties: this.properties,
                   disabled: false,
-                  onGetErrorMessage: null,
+//                  onGetErrorMessage: null,
                   deferredValidationTime: 0,
-                  key: 'alignFieldId'
+//                  key: 'alignFieldId'
                 }),                
               ]
             }

@@ -140,12 +140,12 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
    * Notifies the parent Web Part of a property value change
    */
   private notifyAfterValidate(oldValue: string, newValue: string) {
-    if (this.props.onPropertyChanged && newValue != null) {
-      this.props.properties[this.props.properties.targetProperty] = newValue;
-      this.props.onPropertyChanged(this.props.properties.targetProperty, oldValue, newValue);
-      if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-        this.props.render();
-    }
+    // if (this.props.onPropertyChanged && newValue != null) {
+    //   this.props.properties[this.props.properties.targetProperty] = newValue;
+    //   this.props.onPropertyChanged(this.props.properties.targetProperty, oldValue, newValue);
+    //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
+    //     this.props.render();
+    // }
   }
 
   /**

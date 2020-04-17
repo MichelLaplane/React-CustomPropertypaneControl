@@ -1,12 +1,3 @@
-import { IDropdownOption } from 'office-ui-fabric-react/lib/components/Dropdown';
-
-export interface IPropertyPaneAsyncDropdownProps {
-  label: string;
-  loadOptions: () => Promise<IDropdownOption[]>;
-  onPropertyChange: (propertyPath: string, newValue: any) => void;
-  selectedKey: string | number;
-  disabled?: boolean;
-}
 
 /**
  * @interface
@@ -37,7 +28,7 @@ export interface IPropertyPaneAlignPickerProps {
    * Normally this function must be always defined with the 'this.render.bind(this)'
    * method of the web part object.
    */
-  render(): void;
+//  render(): void;
 //  onRender():void;
 //  render(): void;
   /**
@@ -49,7 +40,7 @@ export interface IPropertyPaneAlignPickerProps {
    * @var
    * Parent Web Part properties
    */
-  properties: any;
+//  properties: any;
   /**
    * @var
    * An UNIQUE key indicates the identity of this control
@@ -72,7 +63,7 @@ export interface IPropertyPaneAlignPickerProps {
    *   - The rejected, the value is thrown away.
    *
    */
-   onGetErrorMessage?: (value: string) => string | Promise<string>;
+//   onGetErrorMessage?: (value: string) => string | Promise<string>;
    /**
     * Custom Field will start to validate after users stop typing for `deferredValidationTime` milliseconds.
     * Default value is 200.

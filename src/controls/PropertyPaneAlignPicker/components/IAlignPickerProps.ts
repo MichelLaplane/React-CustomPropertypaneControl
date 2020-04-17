@@ -42,7 +42,7 @@ export interface IAlignPickerProps {
      * Normally this function must be always defined with the 'this.render.bind(this)'
      * method of the web part object.
      */
-    render(): void;
+//    render(): void;
     /**
      * This property is used to indicate the web part's PropertyPane interaction mode: Reactive or NonReactive.
      * The default behaviour is Reactive.
@@ -52,12 +52,12 @@ export interface IAlignPickerProps {
      * @var
      * Parent Web Part properties
      */
-    properties: any;
+//    properties: any;
     /**
      * @var
      * An UNIQUE key indicates the identity of this control
      */
-    key?: string;
+//    key?: string;
     /**
      * Whether the property pane field is enabled or not.
      */
