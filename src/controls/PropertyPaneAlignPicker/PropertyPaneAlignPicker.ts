@@ -108,38 +108,38 @@ import AlignPicker from './components/AlignPicker';
     ReactDom.unmountComponentAtNode(element);
   }  
 
-  /**
-   * @function
-   * Renders the field content
-   */
-  private render(elem: HTMLElement): void {
-    //Construct the JSX properties
-    const element: React.ReactElement<IAlignPickerProps> = React.createElement(AlignPicker, {
-      label: this.label,
-      initialValue: this.initialValue,
-//      targetProperty: this.targetProperty,
-//      onDispose: this.dispose,
-//      onRender: this.render,
-      onPropertyChanged: this.onPropertyChanged,
-//      properties: this.customProperties,
-      key: this.key,
-      disabled: this.disabled,
-//      onGetErrorMessage: this.onGetErrorMessage,
-      deferredValidationTime: this.deferredValidationTime,
-//      render: this.renderWebPart,
-      disableReactivePropertyChanges: this.disableReactivePropertyChanges
-    });
-    //Calls the REACT content generator
-    ReactDom.render(element, elem);
-  }
+//   /**
+//    * @function
+//    * Renders the field content
+//    */
+//   private render(elem: HTMLElement): void {
+//     //Construct the JSX properties
+//     const element: React.ReactElement<IAlignPickerProps> = React.createElement(AlignPicker, {
+//       label: this.label,
+//       initialValue: this.initialValue,
+// //      targetProperty: this.targetProperty,
+// //      onDispose: this.dispose,
+// //      onRender: this.render,
+//       onPropertyChanged: this.onPropertyChanged,
+// //      properties: this.customProperties,
+//       key: this.key,
+//       disabled: this.disabled,
+// //      onGetErrorMessage: this.onGetErrorMessage,
+//       deferredValidationTime: this.deferredValidationTime,
+// //      render: this.renderWebPart,
+//       disableReactivePropertyChanges: this.disableReactivePropertyChanges
+//     });
+//     //Calls the REACT content generator
+//     ReactDom.render(element, elem);
+//   }
 
-  /**
-   * @function
-   * Disposes the current object
-   */
-  private dispose(elem: HTMLElement): void {
+  // /**
+  //  * @function
+  //  * Disposes the current object
+  //  */
+  // private dispose(elem: HTMLElement): void {
 
-  }
+  // }
 
 }
 
