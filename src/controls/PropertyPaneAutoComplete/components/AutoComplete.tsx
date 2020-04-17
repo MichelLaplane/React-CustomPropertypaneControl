@@ -602,82 +602,82 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
       display: 'inline-block',
       zoom: 1
     };
-    // var dropdownColor = '1px solid #c8c8c8';
-    // if (this.props.disabled === true)
-    //   dropdownColor = '1px solid #f4f4f4';
-    // else if (this.state.isOpen === true)
-    //   dropdownColor = '1px solid #3091DE';
-    // else if (this.state.isHoverDropdown === true)
-    //   dropdownColor = '1px solid #767676';
-    // var fontSelectA = {
-    //   backgroundColor: this.props.disabled === true ? '#f4f4f4' : '#fff',
-    //   borderRadius: '0px',
-    //   backgroundClip: 'padding-box',
-    //   border: dropdownColor,
-    //   display: 'block',
-    //   overflow: 'hidden',
-    //   whiteSpace: 'nowrap',
-    //   position: 'relative',
-    //   height: '26px',
-    //   lineHeight: '26px',
-    //   padding: '0 0 0 8px',
-    //   color: this.props.disabled === true ? '#a6a6a6' : '#444',
-    //   textDecoration: 'none',
-    //   cursor: this.props.disabled === true ? 'default' : 'pointer'
-    // };
-    // var fontSelectASpan = {
-    //   marginRight: '26px',
-    //   display: 'block',
-    //   overflow: 'hidden',
-    //   whiteSpace: 'nowrap',
-    //   lineHeight: '1.8',
-    //   textOverflow: 'ellipsis',
-    //   cursor: this.props.disabled === true ? 'default' : 'pointer',
-    //   //fontFamily: this.state.safeSelectedFont != null && this.state.safeSelectedFont != '' ? this.state.safeSelectedFont : 'Arial',
-    //   //fontSize: this.state.safeSelectedFont,
-    //   fontWeight: 400
-    // };
-    // var fontSelectADiv = {
-    //   borderRadius: '0 0px 0px 0',
-    //   backgroundClip: 'padding-box',
-    //   border: '0px',
-    //   position: 'absolute',
-    //   right: '0',
-    //   top: '0',
-    //   display: 'block',
-    //   height: '100%',
-    //   width: '22px'
-    // };
-    // var fontSelectADivB = {
-    //   display: 'block',
-    //   width: '100%',
-    //   height: '100%',
-    //   cursor: this.props.disabled === true ? 'default' : 'pointer',
-    //   marginTop: '2px'
-    // };
-    // var fsDrop = {
-    //   background: '#fff',
-    //   border: '1px solid #aaa',
-    //   borderTop: '0',
-    //   position: 'absolute',
-    //   top: '32px',
-    //   left: '0',
-    //   width: 'calc(100% - 2px)',
-    //   //boxShadow: '0 4px 5px rgba(0,0,0,.15)',
-    //   zIndex: 999,
-    //   display: this.props.disabled === true ? 'none' : this.state.isOpen ? 'block' : 'none'
-    // };
-    // var fsResults = {
-    //   margin: '0 4px 4px 0',
-    //   maxHeight: '190px',
-    //   width: 'calc(100% - 4px)',
-    //   padding: '0 0 0 4px',
-    //   position: 'relative',
-    //   overflowX: 'hidden',
-    //   overflowY: 'auto'
-    // };
-    // var carret: string = this.state.isOpen ? 'ms-Icon ms-Icon--ChevronUp' : 'ms-Icon ms-Icon--ChevronDown';
-    // //Renders content
+    var dropdownColor = '1px solid #c8c8c8';
+    if (this.props.disabled === true)
+      dropdownColor = '1px solid #f4f4f4';
+    else if (this.state.isOpen === true)
+      dropdownColor = '1px solid #3091DE';
+    else if (this.state.isHoverDropdown === true)
+      dropdownColor = '1px solid #767676';
+    var fontSelectA = {
+      backgroundColor: this.props.disabled === true ? '#f4f4f4' : '#fff',
+      borderRadius: '0px',
+      backgroundClip: 'padding-box',
+      border: dropdownColor,
+      display: 'block',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      position: 'relative',
+      height: '26px',
+      lineHeight: '26px',
+      padding: '0 0 0 8px',
+      color: this.props.disabled === true ? '#a6a6a6' : '#444',
+      textDecoration: 'none',
+      cursor: this.props.disabled === true ? 'default' : 'pointer'
+    };
+    var fontSelectASpan = {
+      marginRight: '26px',
+      display: 'block',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      lineHeight: '1.8',
+      textOverflow: 'ellipsis',
+      cursor: this.props.disabled === true ? 'default' : 'pointer',
+      //fontFamily: this.state.safeSelectedFont != null && this.state.safeSelectedFont != '' ? this.state.safeSelectedFont : 'Arial',
+      //fontSize: this.state.safeSelectedFont,
+      fontWeight: 400
+    };
+    var fontSelectADiv = {
+      borderRadius: '0 0px 0px 0',
+      backgroundClip: 'padding-box',
+      border: '0px',
+      position: 'absolute',
+      right: '0',
+      top: '0',
+      display: 'block',
+      height: '100%',
+      width: '22px'
+    };
+    var fontSelectADivB = {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      cursor: this.props.disabled === true ? 'default' : 'pointer',
+      marginTop: '2px'
+    };
+    var fsDrop = {
+      background: '#fff',
+      border: '1px solid #aaa',
+      borderTop: '0',
+      position: 'absolute',
+      top: '32px',
+      left: '0',
+      width: 'calc(100% - 2px)',
+      //boxShadow: '0 4px 5px rgba(0,0,0,.15)',
+      zIndex: 999,
+      display: this.props.disabled === true ? 'none' : this.state.isOpen ? 'block' : 'none'
+    };
+    var fsResults = {
+      margin: '0 4px 4px 0',
+      maxHeight: '190px',
+      width: 'calc(100% - 4px)',
+      padding: '0 0 0 4px',
+      position: 'relative',
+      overflowX: 'hidden',
+      overflowY: 'auto'
+    };
+    var carret: string = this.state.isOpen ? 'ms-Icon ms-Icon--ChevronUp' : 'ms-Icon ms-Icon--ChevronDown';
+    //Renders content
     // return (
     //   <div style={{ marginBottom: '8px' }}>
     //     <Label>{this.props.label}</Label>
@@ -732,6 +732,6 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
       <div>
         <TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" />
       </div>
-    )    
+    );    
   }
 }
