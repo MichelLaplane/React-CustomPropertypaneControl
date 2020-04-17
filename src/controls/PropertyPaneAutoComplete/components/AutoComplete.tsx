@@ -693,6 +693,30 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
             onChanged={this.onValueChanged}
             aria-invalid={!!this.state.errorMessage}
           />
+           <div >
+             <ul id={"drop-" + this.state.guid}>
+               {this.state.suggestions.map((sug: string, index: number) => {
+                var backgroundColor: string = 'transparent';
+                if (this.state.currentValue === sug)
+                  backgroundColor = '#c7e0f4';
+                else if (this.state.hover === sug)
+                  backgroundColor = '#eaeaea';
+                var innerStyle = {
+                  //lineHeight: '80%',
+                  height: '20px',
+                  padding: '4px 7px 4px',
+                  margin: '0',
+                  listStyle: 'none',
+                  backgroundColor: backgroundColor,
+                  cursor: 'pointer'
+                };
+                return (
+                  <li key={'autocompletepicker-' + index} role="menuitem" onMouseEnter={this.toggleHover} onClick={this.onClickItem} onMouseLeave={this.toggleHoverLeave} style={innerStyle}>{sug}</li>
+                );
+              })
+              }
+            </ul>
+          </div>          
       </div>
     );
 
