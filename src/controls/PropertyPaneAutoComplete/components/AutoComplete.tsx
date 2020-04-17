@@ -681,6 +681,18 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     return (
       <div style={{ marginBottom: '8px' }}>
         <Label>{this.props.label}</Label>
+           <TextField
+            disabled={this.props.disabled}
+            //            ref={(input) => this.input = input}
+            placeholder={this.props.placeHolder !== undefined ? this.props.placeHolder : ''}
+            value={this.state.currentValue}
+            onClick={this.onClickInput}
+            onBlur={this.onInputBlur}
+            onKeyUp={this.onInputKeyDown}
+            onKeyPress={this.onInputKeyPress}
+            onChanged={this.onValueChanged}
+            aria-invalid={!!this.state.errorMessage}
+          />
       </div>
     );
 
