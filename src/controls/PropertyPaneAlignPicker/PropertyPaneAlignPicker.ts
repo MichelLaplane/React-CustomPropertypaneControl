@@ -145,7 +145,7 @@ class PropertyFieldAlignPickerBuilder implements IPropertyPaneField<IPropertyPan
    */
   public constructor(_targetProperty: string, _properties: IPropertyPaneAlignPickerInternalProps) {
     this.render = this.render.bind(this);
-    this.targetProperty = _properties.targetProperty;
+    //this.targetProperty = _properties.targetProperty;
     this.properties = _properties;
     this.label = _properties.label;
     this.initialValue = _properties.initialValue;
@@ -210,13 +210,13 @@ export function PropertyPaneAlignPicker(targetProperty: string, properties: IPro
   //Create an internal properties object from the given properties
   var newProperties: IPropertyPaneAlignPickerInternalProps = {
     label: properties.label,
-    targetProperty: targetProperty,
+//    targetProperty: targetProperty,
     initialValue: properties.initialValue,
     onPropertyChanged: properties.onPropertyChanged,
     properties: properties.properties,
     onDispose: null,
     onRender: null,
-    key: properties.key,
+    key: null,
     disabled: properties.disabled,
     onGetErrorMessage: properties.onGetErrorMessage,
     deferredValidationTime: properties.deferredValidationTime,

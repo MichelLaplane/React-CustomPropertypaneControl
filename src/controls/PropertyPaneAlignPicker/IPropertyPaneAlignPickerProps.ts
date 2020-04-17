@@ -54,7 +54,7 @@ export interface IPropertyPaneAlignPickerProps {
    * @var
    * An UNIQUE key indicates the identity of this control
    */
-  key?: string;
+//  key?: string;
   /**
    * Whether the property pane field is enabled or not.
    */
