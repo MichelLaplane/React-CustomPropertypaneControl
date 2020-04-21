@@ -25,7 +25,7 @@ export interface IAutoCompleteProps {
      * Normally this function must be always defined with the 'this.onPropertyChange'
      * method of the web part object.
      */
-    onPropertyChanged(propertyPath: string, oldValue: any, newValue: any): void;
+    onPropertyChanged(propertyPath: string, oldValue: any, newValue: any):void;
     /**
      * @function
      * This API is called to render the web part.

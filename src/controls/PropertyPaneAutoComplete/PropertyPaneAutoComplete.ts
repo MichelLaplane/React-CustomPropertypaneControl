@@ -87,7 +87,7 @@ export class PropertyPaneAutoComplete implements IPropertyPaneField<IPropertyPan
     const element: React.ReactElement<IAutoCompleteProps> = React.createElement(AutoComplete, {
       label: this.properties.label,
       initialValue: this.properties.initialValue,
-      suggestions: this.suggestions,
+      suggestions: this.properties.suggestions,
       placeHolder: this.placeHolder,
       onPropertyChanged: this.properties.onPropertyChanged,
       disableReactivePropertyChanges: this.properties.disableReactivePropertyChanges,

@@ -117,6 +117,13 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     this.render();
   }
 
+  private onAutoCompleteChange(propertyPath: string, newValue: any): void {
+    const oldValue: any = get(this.properties, propertyPath);
+    // store new value in web part properties
+    update(this.properties, propertyPath, (): any => { return newValue; });
+    // refresh web part
+    this.render();
+  }  
 
   public render(): void {
     const element: React.ReactElement<IListItemsProps> = React.createElement(
@@ -124,7 +131,8 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
       {
         listNameSimple: this.properties.listNameSimple,
         listName: this.properties.listName,
-        item: this.properties.item
+        item: this.properties.item,
+        autoSuggest: this.properties.autoSuggest
       }
     );
 
@@ -201,6 +209,7 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                   label: strings.AlignFieldLabel,
                   initialValue: this.properties.align,
                   onPropertyChanged: this.onPropertyPaneFieldChanged,
+                  //onPropertyChanged: this.onListChange.bind(this),
 //                  render: this.render.bind(this),
                   disableReactivePropertyChanges: this.disableReactivePropertyChanges,
 //                  properties: this.properties,
@@ -265,7 +274,8 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                     "Wisconsin",
                     "Wyoming"
                   ],
-                  onPropertyChanged: this.onPropertyPaneFieldChanged,
+                  onPropertyChanged: this.onAutoCompleteChange.bind(this),                  
+//                  onPropertyChanged: this.onAutoCompleteChange.bind(this),
 //                  render: this.render.bind(this),
                   disableReactivePropertyChanges: this.disableReactivePropertyChanges,
 //                  properties: this.properties,

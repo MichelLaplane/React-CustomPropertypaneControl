@@ -27,7 +27,8 @@ export interface IPropertyPaneAutoCompleteProps {
      * TextBox default place holder text
      */
     placeHolder?: string;    
-    onPropertyChanged(propertyPath: string, oldValue: any, newValue: any): void;
+    onPropertyChanged(propertyPath: string, oldValue: any, newValue: any):void;
+//    onPropertyChange: (propertyPath: string, newValue: any) => void;
     /**
      * @function
      * This API is called to render the web part.
