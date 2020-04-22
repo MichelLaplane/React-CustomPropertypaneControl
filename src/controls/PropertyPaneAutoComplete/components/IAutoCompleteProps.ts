@@ -25,29 +25,8 @@ export interface IAutoCompleteProps {
      * Normally this function must be always defined with the 'this.onPropertyChange'
      * method of the web part object.
      */
-    onPropertyChanged(propertyPath: string, oldValue: any, newValue: any):void;
-    /**
-     * @function
-     * This API is called to render the web part.
-     * Normally this function must be always defined with the 'this.render.bind(this)'
-     * method of the web part object.
-     */
-    //render(): void;
-    /**
-     * This property is used to indicate the web part's PropertyPane interaction mode: Reactive or NonReactive.
-     * The default behaviour is Reactive.
-     */
-    disableReactivePropertyChanges?: boolean;
-    /**
-     * @var
-     * Parent Web Part properties
-     */
-    //properties: any;
-    /**
-     * @var
-     * An UNIQUE key indicates the identity of this control
-     */
-    //key?: string;
+//    onPropertyChanged(propertyPath: string, newValue: any):void;
+    onPropertyChanged(newValue: any):void;
     /**
      * Whether the property pane field is enabled or not.
      */
@@ -66,9 +45,4 @@ export interface IAutoCompleteProps {
      *
      */
      onGetErrorMessage?: (value: string) => string | Promise<string>;
-     /**
-      * Custom Field will start to validate after users stop typing for `deferredValidationTime` milliseconds.
-      * Default value is 200.
-      */
-     deferredValidationTime?: number;
   }

@@ -132,10 +132,10 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     this.render();
   }
 
-  private onAutoCompleteChange(propertyPath: string, newValue: any): void {
-    const oldValue: any = get(this.properties, propertyPath);
+  private onAutoCompleteChange(newValue: any): void {
     // store new value in web part properties
-    update(this.properties, propertyPath, (): any => { return newValue; });
+//    update(this.properties, this.properties.autoSuggest, (): any => { return newValue; });
+    update(this.properties, 'autoSuggest', (): any => { return newValue; });
     // refresh web part
     this.render();
   }
@@ -308,11 +308,11 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                   onPropertyChanged: this.onAutoCompleteChange.bind(this),
                   //                  onPropertyChanged: this.onAutoCompleteChange.bind(this),
                   //                  render: this.render.bind(this),
-                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
+//                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
                   //                  properties: this.properties,
                   disabled: false,
                   //                  onGetErrorMessage: null,
-                  deferredValidationTime: 0,
+//                  deferredValidationTime: 0,
                   //                  key: 'autoSuggestFieldId'
                 })
 

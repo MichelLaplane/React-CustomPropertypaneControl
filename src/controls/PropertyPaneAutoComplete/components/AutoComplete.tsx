@@ -52,11 +52,34 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     this.mouseEnterDropDown = this.mouseEnterDropDown.bind(this);
     this.mouseLeaveDropDown = this.mouseLeaveDropDown.bind(this);
     this.automaticScroll = this.automaticScroll.bind(this);
-    // this.validate = this.validate.bind(this);
-    this.notifyAfterValidate = this.notifyAfterValidate.bind(this);
-    this.delayedValidate = this.async.debounce(this.validate, this.props.deferredValidationTime);
-    this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
+
+  public componentDidMount(): void {
+  }
+
+  // public componentDidUpdate(prevProps: IAutoCompleteProps, prevState: IAutoCompleteState): void {
+  //   if ((this.state.mode) && (this.state.mode !== this.latestValidateValue)) {
+  //     this.latestValidateValue = this.state.mode;
+  //     this.setState(this.state);
+  //   }
+  // }
+
+  public componentDidUpdate(prevProps: IAutoCompleteProps, prevState: IAutoCompleteState, prevContext: any): void {
+    if (this.state.currentValue != this.state.shortCurrentValue && this.state.isOpen === true) {
+      //Set cursor position
+      this.input.focus();
+      this.input.setSelectionStart(this.state.shortCurrentValue.length);
+      this.input.setSelectionEnd(this.state.currentValue.length);
+
+      if (this.state.scrollPosition !== -1) {
+        var divDrop: any = document.getElementById("drop-" + this.state.guid);
+        divDrop.scrollTop = this.state.scrollPosition;
+        this.state = {
+          scrollPosition: -1
+        };
+      }
+    }
+  }  
 
   /**
    * @function
@@ -73,56 +96,18 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     };
     if (this.state.shouldAutoComplete === true) {
       if (this.state.suggestions !== undefined && this.state.suggestions.length > 0) {
-        // this.state.currentValue = this.state.suggestions[0];
-        // this.state.keyPosition = 0;
-        // this.state.shouldAutoComplete = false;
         this.state = {
           currentValue: this.state.suggestions[0],
           keyPosition: 0,
           shouldAutoComplete: false
-          // shortCurrentValue: this.state.shortCurrentValue,
-          // isOpen: this.state.isOpen,
-          // suggestions: this.state.suggestions,
-          // hover: this.state.hover,
-          // isHoverDropdown: this.state.isHoverDropdown,
-          // errorMessage: this.state.errorMessage,
-          // guid: this.state.guid,
-          // scrollPosition: this.state.scrollPosition,
         };
       }
     }
     this.setState(this.state);
-    this.delayedValidate(this.state.currentValue);
+//    this.delayedValidate(this.state.currentValue);
   }
 
-  public componentDidUpdate(prevProps: IAutoCompleteProps, prevState: IAutoCompleteState, prevContext: any): void {
-    if (this.state.currentValue != this.state.shortCurrentValue && this.state.isOpen === true) {
-      //Set cursor position
-      this.input.focus();
-      this.input.setSelectionStart(this.state.shortCurrentValue.length);
-      this.input.setSelectionEnd(this.state.currentValue.length);
 
-      if (this.state.scrollPosition !== -1) {
-        var divDrop: any = document.getElementById("drop-" + this.state.guid);
-        divDrop.scrollTop = this.state.scrollPosition;
-
-        //        this.state.scrollPosition = -1;
-        this.state = {
-          // shortCurrentValue: this.state.shortCurrentValue,
-          // currentValue: this.state.currentValue,
-          // keyPosition: this.state.keyPosition,
-          // isOpen: this.state.isOpen,
-          // suggestions: this.state.suggestions,
-          // hover: this.state.hover,
-          // isHoverDropdown: this.state.isHoverDropdown,
-          // errorMessage: this.state.errorMessage,
-          // guid: this.state.guid,
-          // shouldAutoComplete: this.state.shouldAutoComplete,
-          scrollPosition: -1
-        };
-      }
-    }
-  }
 
   private getSuggestions(value: string) {
     if (value == '') {
@@ -143,14 +128,6 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
         isOpen: false,
         hover: '',
         keyPosition: -1
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // currentValue: this.state.currentValue,
-        // suggestions: this.state.suggestions,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       this.setState(this.state);
     }
@@ -162,33 +139,14 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
         keyPosition: -1,
         hover: '',
         shouldAutoComplete: true
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // currentValue: this.state.currentValue,
-        // isOpen: this.state.isOpen,
-        // suggestions: this.state.suggestions,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // scrollPosition: this.state.scrollPosition,
       };
       this.setState(this.state);
     }
     if (elm.charCode === 13) {
-      // this.state.isOpen = false;
-      // this.state.hover = '';
-      // this.state.keyPosition = -1;
       this.state = {
         isOpen: false,
         hover: '',
         keyPosition: -1,
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // currentValue: this.state.currentValue,
-        // suggestions: this.state.suggestions,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       this.setState(this.state);
       this.input.setSelectionStart(this.state.currentValue.length);
@@ -198,98 +156,32 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
 
   private onInputKeyDown(elm?: any) {
     if (elm.keyCode === 40) {
-      //      this.state.keyPosition = this.state.keyPosition + 1;
       this.state = {
         keyPosition: this.state.keyPosition + 1
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // currentValue: this.state.currentValue,
-        // isOpen: this.state.isOpen,
-        // suggestions: this.state.suggestions,
-        // hover: this.state.hover,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       if (this.state.keyPosition >= this.state.suggestions.length) {
-        //        this.state.keyPosition = this.state.suggestions.length - 1;
         this.state = {
           keyPosition: this.state.suggestions.length - 1
-          // shortCurrentValue: this.state.shortCurrentValue,
-          // currentValue: this.state.currentValue,
-          // isOpen: this.state.isOpen,
-          // suggestions: this.state.suggestions,
-          // hover: this.state.hover,
-          // isHoverDropdown: this.state.isHoverDropdown,
-          // errorMessage: this.state.errorMessage,
-          // guid: this.state.guid,
-          // shouldAutoComplete: this.state.shouldAutoComplete,
-          // scrollPosition: this.state.scrollPosition,
         };
       }
-      //      this.state.currentValue = this.state.suggestions[this.state.keyPosition];
       this.state = {
         currentValue: this.state.suggestions[this.state.keyPosition]
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // keyPosition: this.state.keyPosition,
-        // isOpen: this.state.isOpen,
-        // suggestions: this.state.suggestions,
-        // hover: this.state.hover,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       this.setState(this.state);
       this.automaticScroll(true);
       this.delayedValidate(this.state.currentValue);
     }
     else if (elm.keyCode === 38) {
-      //      this.state.keyPosition = this.state.keyPosition - 1;
       this.state = {
         keyPosition: this.state.keyPosition - 1        
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // currentValue: this.state.currentValue,
-        // isOpen: this.state.isOpen,
-        // suggestions: this.state.suggestions,
-        // hover: this.state.hover,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       if (this.state.keyPosition < 0) {
-        //        this.state.keyPosition = 0;
         this.state = {
           keyPosition: 0          
-          // shortCurrentValue: this.state.shortCurrentValue,
-          // currentValue: this.state.currentValue,
-          // isOpen: this.state.isOpen,
-          // suggestions: this.state.suggestions,
-          // hover: this.state.hover,
-          // isHoverDropdown: this.state.isHoverDropdown,
-          // errorMessage: this.state.errorMessage,
-          // guid: this.state.guid,
-          // shouldAutoComplete: this.state.shouldAutoComplete,
-          // scrollPosition: this.state.scrollPosition,
         };
       }
-      //      this.state.currentValue = this.state.suggestions[this.state.keyPosition];
       this.state = {
         currentValue: this.state.suggestions[this.state.keyPosition]        
-        // shortCurrentValue: this.state.shortCurrentValue,
-        // keyPosition: this.state.keyPosition,
-        // isOpen: this.state.isOpen,
-        // suggestions: this.state.suggestions,
-        // hover: this.state.hover,
-        // isHoverDropdown: this.state.isHoverDropdown,
-        // errorMessage: this.state.errorMessage,
-        // guid: this.state.guid,
-        // shouldAutoComplete: this.state.shouldAutoComplete,
-        // scrollPosition: this.state.scrollPosition,
       };
       this.setState(this.state);
       this.automaticScroll(false);
@@ -308,52 +200,19 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
       //The current element is not displayed
       if (down === true) {
         if ((currentScrollTop + lineHeight) <= currentTopInPixel) {
-          //          this.state.scrollPosition = currentScrollTop + lineHeight;
           this.state = {
             scrollPosition: currentScrollTop + lineHeight            
-            // shortCurrentValue: this.state.shortCurrentValue,
-            // currentValue: this.state.currentValue,
-            // keyPosition: this.state.keyPosition,
-            // isOpen: this.state.isOpen,
-            // suggestions: this.state.suggestions,
-            // hover: this.state.hover,
-            // isHoverDropdown: this.state.isHoverDropdown,
-            // errorMessage: this.state.errorMessage,
-            // guid: this.state.guid,
-            // shouldAutoComplete: this.state.shouldAutoComplete,
           };
         }
         else {
-          //          this.state.scrollPosition = currentTopInPixel;
           this.state = {
             scrollPosition: currentTopInPixel            
-            // shortCurrentValue: this.state.shortCurrentValue,
-            // currentValue: this.state.currentValue,
-            // keyPosition: this.state.keyPosition,
-            // isOpen: this.state.isOpen,
-            // suggestions: this.state.suggestions,
-            // hover: this.state.hover,
-            // isHoverDropdown: this.state.isHoverDropdown,
-            // errorMessage: this.state.errorMessage,
-            // guid: this.state.guid,
-            // shouldAutoComplete: this.state.shouldAutoComplete,
           };
         }
       }
       else {
-        //        this.state.scrollPosition = currentTopInPixel;
         this.state = {
           scrollPosition: currentTopInPixel         
-          // shortCurrentValue: this.state.shortCurrentValue,
-          // currentValue: this.state.currentValue,
-          // keyPosition: this.state.keyPosition,
-          // isOpen: this.state.isOpen,
-          // suggestions: this.state.suggestions,
-          // hover: this.state.hover,
-          // isHoverDropdown: this.state.isHoverDropdown,
-          // errorMessage: this.state.errorMessage,
-          // guid: this.state.guid,
-          // shouldAutoComplete: this.state.shouldAutoComplete,
         };
       }
     }
@@ -371,42 +230,42 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    * @function
    * Validates the new custom field value
    */
-  private validate(value: string): void {
-    if (this.props.onGetErrorMessage === null || this.props.onGetErrorMessage === undefined) {
-      this.notifyAfterValidate(this.props.initialValue, value);
-      return;
-    }
+  // private validate(value: string): void {
+  //   if (this.props.onGetErrorMessage === null || this.props.onGetErrorMessage === undefined) {
+  //     this.notifyAfterValidate(this.props.initialValue, value);
+  //     return;
+  //   }
 
-    var result: string | PromiseLike<string> = this.props.onGetErrorMessage(value || '');
-    if (result !== undefined) {
-      if (typeof result === 'string') {
-        if (result === undefined || result === '')
-          this.notifyAfterValidate(this.props.initialValue, value);
-        this.setState({ errorMessage: result } as IAutoCompleteState);
-      }
-      else {
-        result.then((errorMessage: string) => {
-          if (errorMessage === undefined || errorMessage === '')
-            this.notifyAfterValidate(this.props.initialValue, value);
-          this.setState({ errorMessage } as IAutoCompleteState);
-        });
-      }
-    }
-    else {
-      this.notifyAfterValidate(this.props.initialValue, value);
-    }
-  }
+  //   var result: string | PromiseLike<string> = this.props.onGetErrorMessage(value || '');
+  //   if (result !== undefined) {
+  //     if (typeof result === 'string') {
+  //       if (result === undefined || result === '')
+  //         this.notifyAfterValidate(this.props.initialValue, value);
+  //       this.setState({ errorMessage: result } as IAutoCompleteState);
+  //     }
+  //     else {
+  //       result.then((errorMessage: string) => {
+  //         if (errorMessage === undefined || errorMessage === '')
+  //           this.notifyAfterValidate(this.props.initialValue, value);
+  //         this.setState({ errorMessage } as IAutoCompleteState);
+  //       });
+  //     }
+  //   }
+  //   else {
+  //     this.notifyAfterValidate(this.props.initialValue, value);
+  //   }
+  // }
 
-  /**
-   * @function
-   * Notifies the parent Web Part of a property value change
-   */
-  private notifyAfterValidate(oldValue: string, newValue: string) {
-//      this.props.properties[this.props.properties.targetProperty] = newValue;
-    //   this.props.onPropertyChange(this.props.targetProperty, oldValue, newValue);
-    //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-    //     this.props.render();
-  }
+//   /**
+//    * @function
+//    * Notifies the parent Web Part of a property value change
+//    */
+//   private notifyAfterValidate(oldValue: string, newValue: string) {
+// //      this.props.properties[this.props.properties.targetProperty] = newValue;
+//     //   this.props.onPropertyChange(this.props.targetProperty, oldValue, newValue);
+//     //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
+//     //     this.props.render();
+//   }
 
   /**
    * @function
@@ -424,19 +283,8 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
   private onOpenDialog(): void {
     if (this.props.disabled === true)
       return;
-    //    this.state.isOpen = !this.state.isOpen;
     this.state = {
       isOpen: !this.state.isOpen      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // suggestions: this.state.suggestions,
-      // hover: this.state.hover,
-      // isHoverDropdown: this.state.isHoverDropdown,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
   }
@@ -447,19 +295,8 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    */
   private toggleHover(element?: any) {
     var hoverFont: string = element.currentTarget.textContent;
-    //    this.state.hover = hoverFont;
     this.state = {
       hover: hoverFont      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // isOpen: this.state.isOpen,
-      // suggestions: this.state.suggestions,
-      // isHoverDropdown: this.state.isHoverDropdown,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
   }
@@ -469,19 +306,8 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    * Mouse is leaving a font
    */
   private toggleHoverLeave(element?: any) {
-    //    this.state.hover = '';
     this.state = {
       hover: ''      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // isOpen: this.state.isOpen,
-      // suggestions: this.state.suggestions,
-      // isHoverDropdown: this.state.isHoverDropdown,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
   }
@@ -491,19 +317,8 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    * Mouse is hover the fontpicker
    */
   private mouseEnterDropDown(element?: any) {
-    //    this.state.isHoverDropdown = true;
     this.state = {
       isHoverDropdown: true      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // isOpen: this.state.isOpen,
-      // suggestions: this.state.suggestions,
-      // hover: this.state.hover,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
   }
@@ -513,19 +328,8 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    * Mouse is leaving the fontpicker
    */
   private mouseLeaveDropDown(element?: any) {
-    //    this.state.isHoverDropdown = false;
     this.state = {
       isHoverDropdown: false      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // isOpen: this.state.isOpen,
-      // suggestions: this.state.suggestions,
-      // hover: this.state.hover,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
   }
@@ -537,41 +341,28 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
   private onClickItem(element?: any) {
     element.stopPropagation();
     var clickedFont: string = element.currentTarget.textContent;
-    //    this.state.currentValue = clickedFont;
     this.state = {
       currentValue: clickedFont      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // keyPosition: this.state.keyPosition,
-      // isOpen: this.state.isOpen,
-      // suggestions: this.state.suggestions,
-      // hover: this.state.hover,
-      // isHoverDropdown: this.state.isHoverDropdown,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.onOpenDialog();
     this.delayedValidate(clickedFont);
   }
 
   private onClickInput(elm?: any) {
-    // this.state.isOpen = true;
-    // this.state.suggestions = this.getSuggestions(this.state.currentValue);
     this.state = {
       isOpen: true,
       suggestions: this.getSuggestions(this.state.currentValue)      
-      // shortCurrentValue: this.state.shortCurrentValue,
-      // currentValue: this.state.currentValue,
-      // keyPosition: this.state.keyPosition,
-      // hover: this.state.hover,
-      // isHoverDropdown: this.state.isHoverDropdown,
-      // errorMessage: this.state.errorMessage,
-      // guid: this.state.guid,
-      // shouldAutoComplete: this.state.shouldAutoComplete,
-      // scrollPosition: this.state.scrollPosition,
     };
     this.setState(this.state);
+  }
+
+  private onPropertyChanged(newValue: string): void {
+    if (this.props.onPropertyChanged && newValue != null) {
+      if (this.props.onPropertyChanged) {
+//        this.latestValidateValue = newValue;
+        this.props.onPropertyChanged(newValue);
+      }
+    }
   }
 
   /**
@@ -580,6 +371,7 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
    */
   public render(): JSX.Element {
 
+    this.onPropertyChanged(this.state.hover);
 
     var fontSelect = {
       fontSize: '16px',
@@ -714,7 +506,7 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
             disabled={this.props.disabled}
             //            ref={(input) => this.input = input}
             placeholder={this.props.placeHolder !== undefined ? this.props.placeHolder : ''}
-            value={this.state.currentValue}
+            value={this.state.hover}
             onClick={this.onClickInput}
             onBlur={this.onInputBlur}
             onKeyUp={this.onInputKeyDown}

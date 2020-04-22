@@ -57,21 +57,14 @@ export class PropertyPaneAlignPicker implements IPropertyPaneField<IPropertyPane
       onPropertyChanged: properties.onPropertyChanged,
       disableReactivePropertyChanges: (properties.disableReactivePropertyChanges !== undefined && properties.disableReactivePropertyChanges != null) ? properties.disableReactivePropertyChanges : null,
       disabled: properties.disabled,
-      deferredValidationTime: (properties.deferredValidationTime !== undefined) ? properties.deferredValidationTime : null,
       onRender: this.onRender.bind(this),
       onDispose: this.onDispose.bind(this)
     };
     this.label = properties.label;
     this.initialValue = properties.initialValue;
- //   this.key = properties.key;
     if (properties.disabled === true)
       this.disabled = properties.disabled;
     this.onGetErrorMessage = properties.onGetErrorMessage;
-    if (properties.deferredValidationTime !== undefined)
-      this.deferredValidationTime = properties.deferredValidationTime;
-//    this.renderWebPart = _properties.render;
-    if (properties.disableReactivePropertyChanges !== undefined && properties.disableReactivePropertyChanges != null)
-      this.disableReactivePropertyChanges = properties.disableReactivePropertyChanges;    
   }
 
   public render(): void {
@@ -90,9 +83,7 @@ export class PropertyPaneAlignPicker implements IPropertyPaneField<IPropertyPane
       label: this.properties.label,
       initialValue: this.properties.initialValue,
       onPropertyChanged: this.properties.onPropertyChanged,
-      disableReactivePropertyChanges: this.properties.disableReactivePropertyChanges,
       disabled: this.properties.disabled,
-      deferredValidationTime: this.properties.deferredValidationTime,
       key: this.key,
       stateKey: new Date().toString()
     });
