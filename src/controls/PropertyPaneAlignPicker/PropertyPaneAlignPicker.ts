@@ -13,12 +13,12 @@ import {
   PropertyPaneFieldType,
   IPropertyPaneCustomFieldProps
 } from '@microsoft/sp-webpart-base';
-//import PropertyFieldAlignPickerHost, { IPropertyFieldAlignPickerHostProps } from './PropertyPaneAlignPicker';
+
 import { IPropertyPaneAlignPickerInternalProps } from './IPropertyPaneAlignPickerInternalProps';
 
 import { IAlignPickerProps } from './components/IAlignPickerProps';
 import { IPropertyPaneAlignPickerProps } from './IPropertyPaneAlignPickerProps';
-//import { AlignPicker} from './components/AlignPicker';
+
 import AlignPicker from './components/AlignPicker';
 
 /**
@@ -26,7 +26,6 @@ import AlignPicker from './components/AlignPicker';
  * Represents a PropertyFieldAlignPicker object
  *
  */
-//class PropertyFieldAlignPickerBuilder implements IPropertyPaneField<IPropertyPaneAlignPickerProps> {
 export class PropertyPaneAlignPicker implements IPropertyPaneField<IPropertyPaneAlignPickerProps> {
 
   //Properties defined by IPropertyPaneField
@@ -49,7 +48,6 @@ export class PropertyPaneAlignPicker implements IPropertyPaneField<IPropertyPane
    * @function
    * Ctor
    */
-  //  public constructor(_targetProperty: string, _properties: IPropertyPaneAlignPickerInternalProps) {
   public constructor(targetProperty: string, properties: IPropertyPaneAlignPickerProps) {
     this.targetProperty = targetProperty;
     this.properties = {
@@ -68,7 +66,7 @@ export class PropertyPaneAlignPicker implements IPropertyPaneField<IPropertyPane
  //   this.key = properties.key;
     if (properties.disabled === true)
       this.disabled = properties.disabled;
-//    this.onGetErrorMessage = properties.onGetErrorMessage;
+    this.onGetErrorMessage = properties.onGetErrorMessage;
     if (properties.deferredValidationTime !== undefined)
       this.deferredValidationTime = properties.deferredValidationTime;
 //    this.renderWebPart = _properties.render;

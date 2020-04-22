@@ -35,7 +35,7 @@ export interface IAlignPickerProps {
      * Normally this function must be always defined with the 'this.onPropertyChange.bind(this)'
      * method of the web part object.
      */
-    onPropertyChanged(propertyPath: string, newValue: any): void;
+    onPropertyChanged(newValue: any): void;
 
     /**
      * @function

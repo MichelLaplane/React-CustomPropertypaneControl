@@ -28,8 +28,6 @@ import { IAlignPickerProps } from '././IAlignPickerProps';
 export default class AlignPicker extends React.Component<IAlignPickerProps, IAlignPickerState> {
 
   private latestValidateValue: string;
-  private async: Async;
-  private delayedValidate: (value: string) => void;
   private _key: string;
 
   /**
@@ -38,8 +36,7 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
    */
   constructor(props: IAlignPickerProps) {
     super(props);
-    //Bind the current object to the external called onSelectDate method
-    //    this.onValueChanged = this.onValueChanged.bind(this);
+
     this.onClickBullets = this.onClickBullets.bind(this);
     this.onClickTiles = this.onClickTiles.bind(this);
     this.onClickRight = this.onClickRight.bind(this);
@@ -58,121 +55,23 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
       overRight: false,
       errorMessage: ''
     };
-
-    // setState don't work in the constructor, we must initialize it brute force
-    // this.setState({
-    //   mode: this.props.initialValue != null && this.props.initialValue != '' ? this.props.initialValue : '',
-    //   overList: false, overTiles: false, overRight: false,
-    //   errorMessage: ''
-    // });
-
-    this.async = new Async(this);
-    //    this.validate = this.validate.bind(this);
-    //    this.notifyAfterValidate = this.notifyAfterValidate.bind(this);
-    //    this.delayedValidate = this.async.debounce(this.validate, this.props.deferredValidationTime);
   }
 
   public componentDidMount(): void {
-    this.loadOptions();
   }
 
-  private loadOptions(): void {
-    this.state = {
-      mode: this.props.initialValue != null && this.props.initialValue != '' ? this.props.initialValue : '',
-      overList: false,
-      overTiles: false,
-      overRight: false,
-      errorMessage: ''
-    };
-
-  }
   public componentDidUpdate(prevProps: IAlignPickerProps, prevState: IAlignPickerState): void {
-    // if (this.props.disabled !== prevProps.disabled ||
-    //   this.props.stateKey !== prevProps.stateKey) {
     if ((this.state.mode) && (this.state.mode !== this.latestValidateValue)) {
-      //    if (this.props.stateKey !== prevProps.stateKey) {//      this.loadOptions();
       this.latestValidateValue = this.state.mode;
       this.setState(this.state);
-    }    // if ((this.state.selectedAlign) && (this.state.selectedAlign !== prevState.selectedAlign)) {
-    //   this.selectedAlign = this.state.selectedAlign;
-    //     this.setState(this.state);
-    // }
+    }
   }
-
-  // /**
-  //  * @function
-  //  * Function called when the component selected value changed
-  //  */
-  // private onValueChanged(element: any, previous: string, value: string): void {
-  //   this.delayedValidate(value);
-  // }
-
-  // /**
-  //  * @function
-  //  * Validates the new custom field value
-  //  */
-  // private validate(value: string): void {
-  //   if (this.props.onGetErrorMessage === null || this.props.onGetErrorMessage === undefined) {
-  //     this.notifyAfterValidate(this.props.initialValue, value);
-  //     return;
-  //   }
-
-  //   if (this.latestValidateValue === value)
-  //     return;
-  //   this.latestValidateValue = value;
-
-  //   var result: string | PromiseLike<string> = this.props.onGetErrorMessage(value || '');
-  //   if (result !== undefined) {
-  //     if (typeof result === 'string') {
-  //       if (result === undefined || result === '')
-  //         this.notifyAfterValidate(this.props.initialValue, value);
-  //       //        this.state.errorMessage = result;
-  //       this.state = {
-  //         errorMessage: result
-  //       };
-  //       this.setState(this.state);
-  //     }
-  //     else {
-  //       result.then((errorMessage: string) => {
-  //         if (errorMessage === undefined || errorMessage === '')
-  //           this.notifyAfterValidate(this.props.initialValue, value);
-  //         //          this.state.errorMessage = errorMessage;
-  //         this.state = {
-  //           errorMessage: errorMessage
-  //         };
-  //         this.setState(this.state);
-  //       });
-  //     }
-  //   }
-  //   else {
-  //     this.notifyAfterValidate(this.props.initialValue, value);
-  //   }
-  // }
-
-  //   /**
-  //    * @function
-  //    * Notifies the parent Web Part of a property value change
-  //    */
-  //   private notifyAfterValidate(oldValue: string, newValue: string) {
-  //     // if (this.props.onPropertyChanged && newValue != null) {
-  //     //   this.props.properties[this.props.properties.targetProperty] = newValue;
-  //     //   this.props.onPropertyChanged(this.props.properties.targetProperty, oldValue, newValue);
-  //     //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-  // //         this.props.render();
-  //     // }
-  //     this.state = {
-  //       mode: newValue
-  //     };
-  //     this.setState(this.state);
-  //     this.props.onPropertyChanged;
-  //   }
 
   /**
    * @function
    * Called when the component will unmount
    */
   public componentWillUnmount() {
-    this.async.dispose();
   }
 
   private onClickBullets(element?: any) {
@@ -252,18 +151,11 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
     };
     this.setState(this.state);
   }
-  private onPropertyChanged(option: IAlignPickerProps, newValue: string): void {
+  private onPropertyChanged(newValue: string): void {
     if (this.props.onPropertyChanged && newValue != null) {
       if (this.props.onPropertyChanged) {
 //        this.latestValidateValue = newValue;
-        this.props.onPropertyChanged(option.label, newValue);
-
-        // if (this.props.onPropertyChanged && newValue != null) {
-        //   this.props.properties[this.props.targetProperty] = newValue;
-        //   this.props.onPropertyChanged(this.props.targetProperty, oldValue, newValue);
-        //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-        //     this.props.render();
-        // }
+        this.props.onPropertyChanged(newValue);
       }
     }
   }
@@ -273,15 +165,10 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
    * Renders the controls
    */
   public render(): JSX.Element {
-    //    let backgroundTiles = '#DFDFDF';
-    // const backgroundTiles: JSX.Element = <div><TextField label="Message" value="This is the PropertyFieldAlignPickerHost message" /></div>;
-    // const backgroundLists = '#DFDFDF';
-    // var backgroundRight = this.state.overRight;
-
     var backgroundTiles = this.state.overTiles ? '#DFDFDF' : '';
     var backgroundLists = this.state.overList ? '#DFDFDF' : '';
     var backgroundRight = this.state.overRight ? '#DFDFDF' : '';
-    this.onPropertyChanged(this.props, this.latestValidateValue);
+    this.onPropertyChanged(this.latestValidateValue);
     if (this.state.mode == 'left')
       backgroundLists = '#EEEEEE';
     if (this.state.mode == 'center')

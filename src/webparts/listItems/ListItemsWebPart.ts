@@ -118,8 +118,7 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     this.render();
   }
 
-  private onAlignPickerChange(propertyPath: string, newValue: any): void {
-    const oldValue: any = get(this.properties, propertyPath);
+  private onAlignPickerChange( newValue: any): void {
     // store new value in web part properties
     update(this.properties, 'align', (): any => { return newValue; });
     // refresh web part

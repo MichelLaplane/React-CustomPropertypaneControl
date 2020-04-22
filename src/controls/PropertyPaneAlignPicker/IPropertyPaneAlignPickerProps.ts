@@ -21,7 +21,7 @@ export interface IPropertyPaneAlignPickerProps {
    * Normally this function must be always defined with the 'this.onPropertyChange.bind(this)'
    * method of the web part object.
    */
-  onPropertyChanged(propertyPath: string, newValue: any): void;
+  onPropertyChanged(newValue: any): void;
   /**
    * @function
    * This API is called to render the web part.
@@ -63,7 +63,7 @@ export interface IPropertyPaneAlignPickerProps {
    *   - The rejected, the value is thrown away.
    *
    */
-//   onGetErrorMessage?: (value: string) => string | Promise<string>;
+   onGetErrorMessage?: (value: string) => string | Promise<string>;
    /**
     * Custom Field will start to validate after users stop typing for `deferredValidationTime` milliseconds.
     * Default value is 200.
