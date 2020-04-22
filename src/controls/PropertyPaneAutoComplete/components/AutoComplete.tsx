@@ -52,9 +52,10 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
     this.mouseEnterDropDown = this.mouseEnterDropDown.bind(this);
     this.mouseLeaveDropDown = this.mouseLeaveDropDown.bind(this);
     this.automaticScroll = this.automaticScroll.bind(this);
-    this.validate = this.validate.bind(this);
+    // this.validate = this.validate.bind(this);
     this.notifyAfterValidate = this.notifyAfterValidate.bind(this);
     this.delayedValidate = this.async.debounce(this.validate, this.props.deferredValidationTime);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
   /**
@@ -357,6 +358,14 @@ export default class AutoComplete extends React.Component<IAutoCompleteProps, IA
       }
     }
   }
+
+  // public componentDidUpdate(prevProps: IAutoCompleteProps, prevState: IAutoCompleteState): void {
+  //   if (this.props.disabled !== prevProps.disabled ||
+  //     this.props.initialValue !== prevProps.initialValue) {
+  //     if (!this.props.disableReactivePropertyChanges)
+  //       this.props.onPropertyChanged;
+  //   }
+  // }
 
   /**
    * @function

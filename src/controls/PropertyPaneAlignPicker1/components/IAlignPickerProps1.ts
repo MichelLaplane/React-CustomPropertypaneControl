@@ -18,25 +18,27 @@
 //     stateKey: string;
 //   }
 
-export interface IAlignPickerProps {
+export interface IAlignPickerProps1 {
     /**
      * @var
      * Property field label displayed on top
      */
     label: string;
+//    mode:string;
     /**
      * @var
      * Initial value
      */
     initialValue?: string;
+    selectedAlign:string;
     /**
      * @function
      * Defines a onPropertyChange function to raise when the selected Color changed.
      * Normally this function must be always defined with the 'this.onPropertyChange.bind(this)'
      * method of the web part object.
      */
-    onPropertyChanged(propertyPath: string, newValue: any): void;
-
+    onChanged: (option: IAlignPickerProps1, align: string) => void;
+ //   onPropertyChanged(propertyPath: string, oldValue: any, newValue: any): void;
     /**
      * @function
      * This API is called to render the web part.
@@ -48,7 +50,7 @@ export interface IAlignPickerProps {
      * This property is used to indicate the web part's PropertyPane interaction mode: Reactive or NonReactive.
      * The default behaviour is Reactive.
      */
-    disableReactivePropertyChanges?: boolean;
+//    disableReactivePropertyChanges?: boolean;
     /**
      * @var
      * Parent Web Part properties
@@ -81,6 +83,5 @@ export interface IAlignPickerProps {
       * Custom Field will start to validate after users stop typing for `deferredValidationTime` milliseconds.
       * Default value is 200.
       */
-     deferredValidationTime?: number;
-     stateKey: string;
+//     deferredValidationTime?: number;
   }

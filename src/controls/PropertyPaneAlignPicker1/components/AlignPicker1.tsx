@@ -7,7 +7,7 @@
  */
 import * as React from 'react';
 //import { IAlignPickerProps } from './IAlignPickerProps';
-import { IPropertyPaneAlignPickerInternalProps } from '../IPropertyPaneAlignPickerInternalProps';
+import { IPropertyPaneAlignPickerInternalProps1 } from '../IPropertyPaneAlignPickerInternalProps1';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Async } from 'office-ui-fabric-react/lib/Utilities';
 import GuidHelper from '../../../Shared/GuidHelper';
@@ -17,63 +17,49 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 //@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
-import { IAlignPickerState } from './IAlignPickerState';
-import { IAlignPickerProps } from '././IAlignPickerProps';
+import { IAlignPickerState1 } from './IAlignPickerState1';
+import { IAlignPickerProps1 } from './IAlignPickerProps1';
 
 
-/**
- * 
- * Renders the controls for PropertyFieldAlignPicker component
- */
-export default class AlignPicker extends React.Component<IAlignPickerProps, IAlignPickerState> {
-
-  private latestValidateValue: string;
-  private async: Async;
-  private delayedValidate: (value: string) => void;
+export default class AlignPicker1 extends React.Component<IAlignPickerProps1, IAlignPickerState1> {
+  private selectedAlign: string;
   private _key: string;
 
   /**
    * @function
    * Constructor
    */
-  constructor(props: IAlignPickerProps) {
+  constructor(props: IAlignPickerProps1) {
     super(props);
     //Bind the current object to the external called onSelectDate method
-    //    this.onValueChanged = this.onValueChanged.bind(this);
     this.onClickBullets = this.onClickBullets.bind(this);
     this.onClickTiles = this.onClickTiles.bind(this);
     this.onClickRight = this.onClickRight.bind(this);
-    this.mouseListEnterDropDown = this.mouseListEnterDropDown.bind(this);
-    this.mouseListLeaveDropDown = this.mouseListLeaveDropDown.bind(this);
-    this.mouseTilesEnterDropDown = this.mouseTilesEnterDropDown.bind(this);
-    this.mouseTilesLeaveDropDown = this.mouseTilesLeaveDropDown.bind(this);
-    this.mouseRightEnterDropDown = this.mouseRightEnterDropDown.bind(this);
-    this.mouseRightLeaveDropDown = this.mouseRightLeaveDropDown.bind(this);
     this._key = GuidHelper.getGuid();
+    this.selectedAlign = 'left';    
 
     this.state = {
       mode: this.props.initialValue != null && this.props.initialValue != '' ? this.props.initialValue : '',
       overList: false,
       overTiles: false,
       overRight: false,
-      errorMessage: ''
+      errorMessage: '',
+      selectedAlign:''
     };
-
-    // setState don't work in the constructor, we must initialize it brute force
-    // this.setState({
-    //   mode: this.props.initialValue != null && this.props.initialValue != '' ? this.props.initialValue : '',
-    //   overList: false, overTiles: false, overRight: false,
-    //   errorMessage: ''
-    // });
-
-    this.async = new Async(this);
-    //    this.validate = this.validate.bind(this);
-    //    this.notifyAfterValidate = this.notifyAfterValidate.bind(this);
-    //    this.delayedValidate = this.async.debounce(this.validate, this.props.deferredValidationTime);
   }
 
   public componentDidMount(): void {
     this.loadOptions();
+  }
+
+  public componentDidUpdate(prevProps: IAlignPickerProps1, prevState: IAlignPickerState1): void {
+    if ((this.state.selectedAlign) && (this.state.selectedAlign !== prevState.selectedAlign)) {
+      this.selectedAlign = this.state.selectedAlign;
+        // this.state = {
+        //   selectedAlign: this.state.selectedAlign
+        //         };
+        this.setState(this.state);
+    }
   }
 
   private loadOptions(): void {
@@ -82,189 +68,57 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
       overList: false,
       overTiles: false,
       overRight: false,
-      errorMessage: ''
+      errorMessage: '',
+      selectedAlign:this.selectedAlign
     };
-
-  }
-  public componentDidUpdate(prevProps: IAlignPickerProps, prevState: IAlignPickerState): void {
-    // if (this.props.disabled !== prevProps.disabled ||
-    //   this.props.stateKey !== prevProps.stateKey) {
-    if ((this.state.mode) && (this.state.mode !== this.latestValidateValue)) {
-      //    if (this.props.stateKey !== prevProps.stateKey) {//      this.loadOptions();
-      this.latestValidateValue = this.state.mode;
-      this.setState(this.state);
-    }    // if ((this.state.selectedAlign) && (this.state.selectedAlign !== prevState.selectedAlign)) {
-    //   this.selectedAlign = this.state.selectedAlign;
-    //     this.setState(this.state);
-    // }
-  }
-
-  // /**
-  //  * @function
-  //  * Function called when the component selected value changed
-  //  */
-  // private onValueChanged(element: any, previous: string, value: string): void {
-  //   this.delayedValidate(value);
-  // }
-
-  // /**
-  //  * @function
-  //  * Validates the new custom field value
-  //  */
-  // private validate(value: string): void {
-  //   if (this.props.onGetErrorMessage === null || this.props.onGetErrorMessage === undefined) {
-  //     this.notifyAfterValidate(this.props.initialValue, value);
-  //     return;
-  //   }
-
-  //   if (this.latestValidateValue === value)
-  //     return;
-  //   this.latestValidateValue = value;
-
-  //   var result: string | PromiseLike<string> = this.props.onGetErrorMessage(value || '');
-  //   if (result !== undefined) {
-  //     if (typeof result === 'string') {
-  //       if (result === undefined || result === '')
-  //         this.notifyAfterValidate(this.props.initialValue, value);
-  //       //        this.state.errorMessage = result;
-  //       this.state = {
-  //         errorMessage: result
-  //       };
-  //       this.setState(this.state);
-  //     }
-  //     else {
-  //       result.then((errorMessage: string) => {
-  //         if (errorMessage === undefined || errorMessage === '')
-  //           this.notifyAfterValidate(this.props.initialValue, value);
-  //         //          this.state.errorMessage = errorMessage;
-  //         this.state = {
-  //           errorMessage: errorMessage
-  //         };
-  //         this.setState(this.state);
-  //       });
-  //     }
-  //   }
-  //   else {
-  //     this.notifyAfterValidate(this.props.initialValue, value);
-  //   }
-  // }
-
-  //   /**
-  //    * @function
-  //    * Notifies the parent Web Part of a property value change
-  //    */
-  //   private notifyAfterValidate(oldValue: string, newValue: string) {
-  //     // if (this.props.onPropertyChanged && newValue != null) {
-  //     //   this.props.properties[this.props.properties.targetProperty] = newValue;
-  //     //   this.props.onPropertyChanged(this.props.properties.targetProperty, oldValue, newValue);
-  //     //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-  // //         this.props.render();
-  //     // }
-  //     this.state = {
-  //       mode: newValue
-  //     };
-  //     this.setState(this.state);
-  //     this.props.onPropertyChanged;
-  //   }
-
-  /**
-   * @function
-   * Called when the component will unmount
-   */
-  public componentWillUnmount() {
-    this.async.dispose();
+    
   }
 
   private onClickBullets(element?: any) {
     var previous = this.state.mode;
+    // this.state.mode = 'left';
     this.state = {
-      mode: 'left'
+      selectedAlign: 'left'
     };
     this.setState(this.state);
+    //    this.onValueChanged(this, previous, this.state.mode);
   }
 
   private onClickTiles(element?: any) {
     var previous = this.state.mode;
+    //    this.state.mode = 'center';
     this.state = {
-      mode: 'center'
+      selectedAlign: 'center'
     };
     this.setState(this.state);
+    ///    this.onValueChanged(this, previous, this.state.mode);
   }
 
   private onClickRight(element?: any) {
     var previous = this.state.mode;
+    //    this.state.mode = 'right';
     this.state = {
-      mode: 'right'
+      selectedAlign: 'right'
     };
     this.setState(this.state);
+    ///    this.onValueChanged(this, previous, this.state.mode);
   }
 
-  private mouseListEnterDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overList: true
-    };
-    this.setState(this.state);
-  }
-
-  private mouseListLeaveDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overList: false
-    };
-    this.setState(this.state);
-  }
-
-  private mouseTilesEnterDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overTiles: true
-    };
-    this.setState(this.state);
-  }
-
-  private mouseTilesLeaveDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overTiles: false
-    };
-    this.setState(this.state);
-  }
-
-  private mouseRightEnterDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overRight: true
-    };
-    this.setState(this.state);
-  }
-
-  private mouseRightLeaveDropDown() {
-    if (this.props.disabled === true)
-      return;
-    this.state = {
-      overRight: false
-    };
-    this.setState(this.state);
-  }
-  private onPropertyChanged(option: IAlignPickerProps, newValue: string): void {
-    if (this.props.onPropertyChanged && newValue != null) {
-      if (this.props.onPropertyChanged) {
-//        this.latestValidateValue = newValue;
-        this.props.onPropertyChanged(option.label, newValue);
-
-        // if (this.props.onPropertyChanged && newValue != null) {
-        //   this.props.properties[this.props.targetProperty] = newValue;
-        //   this.props.onPropertyChanged(this.props.targetProperty, oldValue, newValue);
-        //   if (!this.props.disableReactivePropertyChanges && this.props.render != null)
-        //     this.props.render();
-        // }
-      }
+  private onChanged(option: IAlignPickerProps1, align: string): void {
+    this.selectedAlign = align;
+    // // reset previously selected options
+    // const options: IDropdownOption[] = this.state.options;
+    // options.forEach((o: IDropdownOption): void => {
+    //   if (o.key !== option.key) {
+    //     o.selected = false;
+    //   }
+    // });
+    // this.setState((prevState: IAsyncDropdownState, props: IAsyncDropdownProps): IAsyncDropdownState => {
+    //   prevState.options = options;
+    //   return prevState;
+    // });
+    if (this.props.onChanged) {
+      this.props.onChanged(option, this.selectedAlign);
     }
   }
 
@@ -281,7 +135,7 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
     var backgroundTiles = this.state.overTiles ? '#DFDFDF' : '';
     var backgroundLists = this.state.overList ? '#DFDFDF' : '';
     var backgroundRight = this.state.overRight ? '#DFDFDF' : '';
-    this.onPropertyChanged(this.props, this.latestValidateValue);
+    this.onChanged(this.props,this.selectedAlign);
     if (this.state.mode == 'left')
       backgroundLists = '#EEEEEE';
     if (this.state.mode == 'center')
@@ -311,7 +165,7 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
 
         <div style={{ display: 'inline-flex' }}>
           <div style={{ cursor: this.props.disabled === false ? 'pointer' : 'default', width: '70px', marginRight: '30px', backgroundColor: backgroundLists }}
-            onMouseEnter={this.mouseListEnterDropDown} onMouseLeave={this.mouseListLeaveDropDown}>
+          >
             <div style={{ float: 'left' }} className={styles['spcfChoiceField']}>
               <input id={"leftRadio-" + this._key} className={styles['spcfChoiceFieldInput']}
                 disabled={this.props.disabled}
@@ -329,7 +183,7 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
             </div>
           </div>
           <div style={{ cursor: this.props.disabled === false ? 'pointer' : 'default', width: '70px', marginRight: '30px', backgroundColor: backgroundTiles }}
-            onMouseEnter={this.mouseTilesEnterDropDown} onMouseLeave={this.mouseTilesLeaveDropDown}>
+          >
             <div style={{ float: 'left' }} className={styles['spcfChoiceField']}>
               <input id={"centerRadio-" + this._key} className={styles['spcfChoiceFieldInput']}
                 onChange={this.onClickTiles} type="radio" name={"align-picker-" + this._key} role="radio"
@@ -347,7 +201,7 @@ export default class AlignPicker extends React.Component<IAlignPickerProps, IAli
             </div>
           </div>
           <div style={{ cursor: this.props.disabled === false ? 'pointer' : 'default', width: '70px', marginRight: '30px', backgroundColor: backgroundRight }}
-            onMouseEnter={this.mouseRightEnterDropDown} onMouseLeave={this.mouseRightLeaveDropDown}>
+          >
             <div style={{ float: 'left' }} className={styles['spcfChoiceField']}>
               <input id={"rightRadio-" + this._key} className={styles['spcfChoiceFieldInput']}
                 onChange={this.onClickRight} type="radio" name={"align-picker-" + this._key} role="radio"

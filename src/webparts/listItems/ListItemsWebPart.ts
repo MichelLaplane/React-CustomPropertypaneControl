@@ -19,6 +19,7 @@ import { update, get } from '@microsoft/sp-lodash-subset';
 import { PropertyPaneDocumentPicker } from '../../controls/PropertyPaneDocumentPicker/PropertyPaneDocumentPicker';
 import { PropertyPaneAlignPicker } from '../../controls/PropertyPaneAlignPicker/PropertyPaneAlignPicker';
 import { PropertyPaneAutoComplete } from '../../controls/PropertyPaneAutoComplete/PropertyPaneAutoComplete';
+import { PropertyPaneAlignPicker1 } from '../../controls/PropertyPaneAlignPicker1/PropertyPaneAlignPicker1';
 
 
 const packageSolution: any = require("../../../config/package-solution.json");
@@ -28,6 +29,7 @@ export interface IListItemsWebPartProps {
   listName: string;
   item: string;
   documentUrl: string;
+  align1: string;
   align: string;
   autoSuggest: string;
 }
@@ -108,8 +110,22 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     this.itemsDropDown.render();
   }
 
+  private onAlignPickerChange1(propertyPath: string, newValue: any): void {
+    const oldValue: any = get(this.properties, propertyPath);
+    // store new value in web part properties
+    update(this.properties, 'align1', (): any => { return newValue; });
+    // refresh web part
+    this.render();
+  }
 
-  private onListItemChange(propertyPath: string, newValue: any): void {
+  private onAlignPickerChange(propertyPath: string, newValue: any): void {
+    const oldValue: any = get(this.properties, propertyPath);
+    // store new value in web part properties
+    update(this.properties, 'align', (): any => { return newValue; });
+    // refresh web part
+    this.render();
+  }
+    private onListItemChange(propertyPath: string, newValue: any): void {
     const oldValue: any = get(this.properties, propertyPath);
     // store new value in web part properties
     update(this.properties, propertyPath, (): any => { return newValue; });
@@ -123,7 +139,7 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     update(this.properties, propertyPath, (): any => { return newValue; });
     // refresh web part
     this.render();
-  }  
+  }
 
   public render(): void {
     const element: React.ReactElement<IListItemsProps> = React.createElement(
@@ -132,6 +148,8 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
         listNameSimple: this.properties.listNameSimple,
         listName: this.properties.listName,
         item: this.properties.item,
+        align1: this.properties.align1,
+        align: this.properties.align,
         autoSuggest: this.properties.autoSuggest
       }
     );
@@ -141,6 +159,10 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
 
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
+  }
+
+  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any) {
+    const value: any = get(this.properties, propertyPath);
   }
 
   protected get dataVersion(): Version {
@@ -205,19 +227,29 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                 //                   deferredValidationTime: 0,
                 //                   key: 'documentFieldId'
                 //                 })
+                new PropertyPaneAlignPicker1('align1', {
+                  label: strings.AlignFieldLabel1,
+//                  mode:this.properties.align1,
+                  initialValue: this.properties.align1,
+                  onPropertyChange: this.onAlignPickerChange1.bind(this),
+//                  onPropertyChange: this.onAfterPropertyPaneChangesApplied,                  
+                  selectedAlign: this.properties.align1
+                }),
                 new PropertyPaneAlignPicker('align', {
                   label: strings.AlignFieldLabel,
                   initialValue: this.properties.align,
-                  onPropertyChanged: this.onPropertyPaneFieldChanged,
+                  onPropertyChanged: this.onAlignPickerChange.bind(this),
                   //onPropertyChanged: this.onListChange.bind(this),
-//                  render: this.render.bind(this),
-                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
-//                  properties: this.properties,
+                  //                  render: this.render.bind(this),
+                  //                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
+//                  disableReactivePropertyChanges: false,
+
+                  //                  properties: this.properties,
                   disabled: false,
-//                  onGetErrorMessage: null,
-                  deferredValidationTime: 0,
-//                  key: 'alignFieldId'
-                }),                
+                  //                  onGetErrorMessage: null,
+//                  deferredValidationTime: 0,
+                  //                  key: 'alignFieldId'
+                }),
                 new PropertyPaneAutoComplete('autoSuggest', {
                   label: strings.AutoSuggestFieldLabel,
                   placeHolder: 'Select a state',
@@ -274,17 +306,17 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                     "Wisconsin",
                     "Wyoming"
                   ],
-                  onPropertyChanged: this.onAutoCompleteChange.bind(this),                  
-//                  onPropertyChanged: this.onAutoCompleteChange.bind(this),
-//                  render: this.render.bind(this),
+                  onPropertyChanged: this.onAutoCompleteChange.bind(this),
+                  //                  onPropertyChanged: this.onAutoCompleteChange.bind(this),
+                  //                  render: this.render.bind(this),
                   disableReactivePropertyChanges: this.disableReactivePropertyChanges,
-//                  properties: this.properties,
+                  //                  properties: this.properties,
                   disabled: false,
-//                  onGetErrorMessage: null,
+                  //                  onGetErrorMessage: null,
                   deferredValidationTime: 0,
-//                  key: 'autoSuggestFieldId'
-                })                
-                
+                  //                  key: 'autoSuggestFieldId'
+                })
+
               ]
             }
           ]

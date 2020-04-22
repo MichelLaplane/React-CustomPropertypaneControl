@@ -4,12 +4,13 @@
  * Public properties of the PropertyFieldAlignPicker custom field
  *
  */
-export interface IPropertyPaneAlignPickerProps {
+export interface IPropertyPaneAlignPickerProps1 {
   /**
    * @var
    * Property field label displayed on top
    */
   label: string;
+//  mode:string;
   /**
    * @var
    * Initial value
@@ -21,7 +22,10 @@ export interface IPropertyPaneAlignPickerProps {
    * Normally this function must be always defined with the 'this.onPropertyChange.bind(this)'
    * method of the web part object.
    */
-  onPropertyChanged(propertyPath: string, newValue: any): void;
+//  onPropertyChanged(propertyPath: string, oldValue: any, newValue: any): void;
+  onPropertyChange: (propertyPath: string, newValue: any) => void;  
+
+  selectedAlign:string;
   /**
    * @function
    * This API is called to render the web part.
@@ -35,7 +39,7 @@ export interface IPropertyPaneAlignPickerProps {
    * This property is used to indicate the web part's PropertyPane interaction mode: Reactive or NonReactive.
    * The default behaviour is Reactive.
    */
-  disableReactivePropertyChanges?: boolean;
+//  disableReactivePropertyChanges?: boolean;
   /**
    * @var
    * Parent Web Part properties
@@ -68,5 +72,5 @@ export interface IPropertyPaneAlignPickerProps {
     * Custom Field will start to validate after users stop typing for `deferredValidationTime` milliseconds.
     * Default value is 200.
     */
-   deferredValidationTime?: number;
+//   deferredValidationTime?: number;
 }
