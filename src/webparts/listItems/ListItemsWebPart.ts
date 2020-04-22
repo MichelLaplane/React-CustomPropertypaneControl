@@ -29,7 +29,6 @@ export interface IListItemsWebPartProps {
   listName: string;
   item: string;
   documentUrl: string;
-  align1: string;
   align: string;
   autoSuggest: string;
 }
@@ -108,14 +107,6 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
     this.itemsDropDown.properties.disabled = false;
     // load items and re-render items dropdown
     this.itemsDropDown.render();
-  }
-
-  private onAlignPickerChange1(propertyPath: string, newValue: any): void {
-    const oldValue: any = get(this.properties, propertyPath);
-    // store new value in web part properties
-    update(this.properties, 'align1', (): any => { return newValue; });
-    // refresh web part
-    this.render();
   }
 
   private onAlignPickerChange( newValue: any): void {
@@ -226,28 +217,11 @@ export default class ListItemsWebPart extends BaseClientSideWebPart<IListItemsWe
                 //                   deferredValidationTime: 0,
                 //                   key: 'documentFieldId'
                 //                 })
-                new PropertyPaneAlignPicker1('align1', {
-                  label: strings.AlignFieldLabel1,
-//                  mode:this.properties.align1,
-                  initialValue: this.properties.align1,
-                  onPropertyChange: this.onAlignPickerChange1.bind(this),
-//                  onPropertyChange: this.onAfterPropertyPaneChangesApplied,                  
-                  selectedAlign: this.properties.align1
-                }),
                 new PropertyPaneAlignPicker('align', {
                   label: strings.AlignFieldLabel,
                   initialValue: this.properties.align,
                   onPropertyChanged: this.onAlignPickerChange.bind(this),
-                  //onPropertyChanged: this.onListChange.bind(this),
-                  //                  render: this.render.bind(this),
-                  //                  disableReactivePropertyChanges: this.disableReactivePropertyChanges,
-//                  disableReactivePropertyChanges: false,
-
-                  //                  properties: this.properties,
                   disabled: false,
-                  //                  onGetErrorMessage: null,
-//                  deferredValidationTime: 0,
-                  //                  key: 'alignFieldId'
                 }),
                 new PropertyPaneAutoComplete('autoSuggest', {
                   label: strings.AutoSuggestFieldLabel,

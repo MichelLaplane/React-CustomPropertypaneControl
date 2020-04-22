@@ -10,7 +10,6 @@ declare interface IListItemsWebPartStrings {
   DocumentPickerSite: string;
   DocumentPickerButtonSelect: string;
   DocumentPickerButtonReset: string;
-  AlignFieldLabel1: string;
   AlignFieldLabel: string;
   AutoSuggestFieldLabel: string;
 }

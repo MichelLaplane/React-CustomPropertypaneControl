@@ -15,7 +15,6 @@ export default class ListItems extends React.Component<IListItemsProps, {}> {
               <p className="ms-font-l ms-fontColor-white">{escape(`listName Simple:${this.props.listNameSimple}`)}</p>
               <p className="ms-font-l ms-fontColor-white">{escape(`listName :${this.props.listName}`)}</p>
               <p className="ms-font-l ms-fontColor-white">{escape(`Item :${this.props.item}`)}</p>
-              <p className="ms-font-l ms-fontColor-white">{escape(`AlignPicker 1 :${this.props.align1}`)}</p>
               <p className="ms-font-l ms-fontColor-white">{escape(`AlignPicker :${this.props.align}`)}</p>
               <p className="ms-font-l ms-fontColor-white">{escape(`Auto Complete Text :${this.props.autoSuggest}`)}</p>
               <a href="https://aka.ms/spfx" className={styles.button}>
