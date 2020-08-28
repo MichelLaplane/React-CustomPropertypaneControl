@@ -1,11 +1,11 @@
 ## react-custompropertypanecontrol
 
-This project is the very first upgrade of a Webpart that commes from the Olivier Carpentier libray.
+This project is the very first upgrade of a Webpart that comes from the Olivier Carpentier library.
 https://oliviercc.github.io/sp-client-custom-fields/
 
-It is useful for understanding how to use the power of SPFx WebPart property pane feature.
+It is useful for understanding how to use the power of SPFx WebPart property pane features.
 
-Some component can be used easily in your project.
+Some components can be used easily in your project.
 
 Enjoy
 
